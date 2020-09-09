@@ -1,0 +1,184 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office")
+head
+    meta(charset="utf-8") 
+    meta(name="viewport" content="width=device-width")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge") 
+    meta(name="x-apple-disable-message-reformatting")
+    title invoice 
+
+    link(href="https://fonts.googleapis.com/css2?family=Muli:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet")   
+ 
+style(). 
+    .btn{
+      padding: 5px 20px;
+      display: inline-block;
+    }
+    .btn.btn-primary{
+      border-radius: 3px;
+      background: #F05832;
+      color: #ffffff;
+    }
+    h1,h2,h3,h4,h5,h6{
+      font-family: 'Poppins', sans-serif;
+      color: #000000;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    body{
+      font-family: 'Muli', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #808080;
+    }
+    a{
+      color: #ffc0d0; text-decoration:none;
+    }
+    table{ font-size: 13px
+    }
+    .logo a {
+        color: #4EB7F8;
+        text-transform: capitalize;
+    }
+    .bg_white {
+        background: #fff;
+    }
+    .bg_primary {
+        background: #2F3B59;
+    }
+    .intro .text h2{
+      color: #000;
+      font-size: 34px;
+      margin-bottom: 0;
+      font-weight: 300;
+    }
+    .intro .text h2 span{
+      font-weight: 600;
+      color: #ffc0d0;
+    }
+    ul.social{
+      padding: 0; margin:0;
+    }
+    ul.social li{
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .item_name,.item_dis{margin:0 ;}
+    table{border-collapse: collapse;}
+    .invoice_table th {
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        background: #2D47FE;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+    .invoice_table tr:nth-of-type(2n+1) {
+        background-color: rgba(0,0,0,.05);
+    }
+    .invoice_table td{ border-bottom: 1px solid #eee; padding: 10px; font-size: 13px}
+    .sub_invoice td,.sub_invoice th{padding: 10px 20px; border-bottom: 1px solid #eee}
+    @media screen and (max-width: 500px) {
+    }
+
+body(width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;")
+  center(style="width: 100%; background-color: #f1f1f1;")    
+    div(style="max-width: 600px; margin: 0 auto;" class="email-container")      
+      table(align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;")
+        tr
+          td(valign="top" class="bg_primary" style="padding: 10px;")
+             table(width="100%")
+              tr
+                td(align="left")
+                              a(href="#")
+                                img(src="https://christinajewellery.com.au:3016/images/logo1.png" width="90px")
+                td(align="right") 
+                    h3(style="color: #fff; margin: 0") #{user.orderid}
+                    p(style="color: #fff; margin: 0") #{user.date}
+ 
+        tr
+          td(valign="top" class="bg_white" style="padding: 10px;")
+             table(width="100%")
+              tr
+                td(align="left")
+                     h5(class="mb-3") From:
+                     h3(class="text-dark mb-1") Christina Jewellery
+                     div 7/100 Bonnyrigg Ave, Bonnyrigg NSW 2177
+                     div Australia
+                     div Email: christina@outlook.com
+                     div Phone: 98765432310
+            
+                td(align="right") 
+                     h5(class="mb-3") To: #{user.roww[0].name}
+                     h3(class="text-dark mb-1") 
+                     div #{user.row[0].b_address}, #{user.row[0].b_address2}
+                     div #{user.row[0].b_city}, #{user.row[0].b_state}, #{user.row[0].b_postal}
+                     div Email: #{user.roww[0].email}
+                     div Phone: #{user.row[0].b_phone}
+                     
+        tr
+          td(valign="top" class="invoice_table bg_white" style="padding: 10px;")
+             table(class="table" width="100%")
+                     thead
+                         tr
+                            th(align="left") Qty
+                            th(align="left") Item
+                            th(align="left") Price                            
+                            th(class="right") Total
+                        
+                     tbody
+                        each item in user.ro
+                         tr
+                            td(class="left" valign="top") #{item.quantity}
+                            td(class="left")
+                                h4(class="item_name") #{item.name}
+                                p(class="item_dis") #{item.product_code}                             
+                            td(class="left") #{item.price} AUD                                                    
+                            td(class="right") #{item.quantity * item.price} AUD                        
+                     
+        tr
+            td(class="bg_white")              
+              table(align="right" width="50%")
+                  tr
+                    td
+                      table(width="100%" class="sub_invoice")
+                        tr
+                          th(align="left") Subtotal 
+                              td(align="right") #{ parseFloat(user.row[0].price) + parseFloat(user.row[0].discount)} AUD
+                        tr
+                          th(align="left") Discount
+                              td(align="right") #{user.row[0].discount} AUD
+                        tr
+                          th(align="left") Total 
+                              td(align="right") #{user.row[0].price} AUD
+
+      table(align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;")
+        tr
+          td(valign="middle" class=" footer")
+            table(width="100%")
+              tr
+                td(valign="middle" width="60%" style="padding-top: 20px; text-align: center;")
+                  h3(class="heading") Stay in Touch!
+                
+              td(valign="middle" style="text-align: center;")
+                  ul(class="social")
+                    li
+                      a(href="#")
+                        img(src="https://christinajewellery.com.au:3016/images/facebook.png" alt="" style="width: 32px; max-width: 600px; height: auto; display: block;")
+                    li
+                      a(href="#")
+                        img(src="https://christinajewellery.com.au:3016/images/twitter.png" alt="" style="width: 32px; max-width: 600px; height: auto; display: block;")
+                    li 
+                      a(href="#")
+                        img(src="https://christinajewellery.com.au:3016/images/instagram.png" alt="" style="width: 32px; max-width: 600px; height: auto; display: block;")
+                  
+              
+        tr
+          td(class="bg_light" style="text-align: center;")
+            p No longer want to receive these email? You can 
+              a(href="https://christinajewellery.com.au" style="color: rgba(0,0,0,.8);") Unsubscribe here 
+
+   
+ 
